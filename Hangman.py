@@ -14,4 +14,9 @@ print(HANGMAN_ASCII_ART, MAX_TRIES, sep="\n")
 
 # Part 2.2
 user_guess = input("Guess a letter:")
-print(user_guess)
+print(user_guess.lower())
+
+# Part 3
+secret_word = input("Please enter a word: ")
+print("_ " * len(secret_word))
+
