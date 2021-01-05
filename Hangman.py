@@ -16,8 +16,11 @@ print(HANGMAN_ASCII_ART, MAX_TRIES, sep="\n")
 user_guess = input("Guess a letter:").lower()
 # check input validity:
 if len(user_guess) != 1:  # more then 1 letter
-    print("E1")
-elif ord(user_guess) < 97 or ord(user_guess) > 122:  # special char
+    if user_guess.isalpha():
+        print("E1")
+    else:
+        print("E3")
+elif not user_guess.isalpha():  # special char
     print("E2")
 else:
     print(user_guess)
