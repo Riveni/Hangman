@@ -11,60 +11,55 @@ HANGMAN_ASCII_ART = """
 """
 MAX_TRIES = 6
 
-
-def game_state():
-    state1 = """
+# part 8
+HANGMAN_PHOTOS = {
+        0: """
         x-------x
-    """
-    state2 = """
+        
+        
+        
+        
+        """, 1: """
         x-------x
         |
         |
         |
         |
-        |
-    """
-    state3 = """
-        x-------x
-        |       |
-        |       0
-        |
-        |
-        |
-    """
-    state4 = """
+        |""", 2: """
         x-------x
         |       |
         |       0
+        |
+        |
+        |""", 3: """
+        x-------x
+        |       |
+        |       0
         |       |
         |
-        |
-    """
-    state5 = """
+        |""", 4: """
         x-------x
         |       |
         |       0
         |      /|\\
         |
-        |
-    """
-    state6 = """
+        |""", 5: """
         x-------x
         |       |
         |       0
         |      /|\\
         |      /
-        |
-    """
-    state7 = """
+        |""", 6: """
         x-------x
         |       |
         |       0
         |      /|\\
         |      / \\
-        |
-    """
-    # print(state1, state2, state3, state4, state5, state6, state7, sep="\n")
+        |"""}
+
+
+def print_hangman(num_of_tries):
+    print(HANGMAN_PHOTOS[num_of_tries])
 
 
 # Part 2.2 + 4 + 5 + 6
@@ -112,7 +107,7 @@ def show_hidden_word(secret_word, old_letters_guessed):
     secret = list(secret_word)
     i = 0
     for letter in secret:
-        if not(letter in old_letters_guessed):
+        if not (letter in old_letters_guessed):
             secret[i] = "_"
         i += 1
     return " ".join(secret)
@@ -127,7 +122,7 @@ def check_win(secret_word, old_letters_guessed):
     :return: if won return True else False
     """
     for letter in secret_word:
-        if not(letter in old_letters_guessed):
+        if not (letter in old_letters_guessed):
             return False
     return True
 
@@ -149,9 +144,16 @@ def main():
     # secret_word = "mammals"
     # print(show_hidden_word(secret_word, old_letters_guessed))
 
-    secret_word = "yes"
-    old_letters_guessed = ['d', 'g', 'e', 'i', 's', 'k', 'y']
-    print(check_win(secret_word, old_letters_guessed))
+    # secret_word = "yes"
+    # old_letters_guessed = ['d', 'g', 'e', 'i', 's', 'k', 'y']
+    # print(check_win(secret_word, old_letters_guessed))
+    print_hangman(0)
+    print_hangman(1)
+    print_hangman(2)
+    print_hangman(3)
+    print_hangman(4)
+    print_hangman(5)
+    print_hangman(6)
     return
 
 
