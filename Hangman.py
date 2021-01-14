@@ -145,7 +145,7 @@ def check_guess(guess, secret_word):
     if guess in secret_word:
         return True
     else:
-        print(":(")
+        # print(":(")
         return False
 
 
@@ -182,31 +182,43 @@ def initial_game():
             print("Invalid input, try again")
 
 
+def update_screen(num_of_tries, secret_word, old_letters_guessed):
+    """
+    update screen with the state of the game
+    :param num_of_tries: int
+    :param secret_word: string
+    :param old_letters_guessed: list
+    :return: none
+    """
+    os.system('cls')
+    print_hangman(num_of_tries)
+    print(show_hidden_word(secret_word, old_letters_guessed), "\n")
+
 
 def main():
     # Initial game
     secret_word = initial_game()
     old_letters_guessed = []
     num_of_tries = 0
-    print_hangman(num_of_tries)
 
     # Game-play
-    while num_of_tries < MAX_TRIES:  # Game runs until user uses all his guesses
-        print(show_hidden_word(secret_word, old_letters_guessed), "\n")
-        user_guess = input("Guess a letter:").lower()
-        if try_update_letter_guessed(user_guess, old_letters_guessed):  # check if user guess is valid
-            if check_guess(user_guess, secret_word):  # check if user guess is correct
-                if check_win(secret_word, old_letters_guessed):  # check if user won
-                    print(show_hidden_word(secret_word, old_letters_guessed), "\n")
-                    print("WIN")
-                    break  # if user won the game ends
-            else:
-                # os.system('cls')
-                num_of_tries += 1
-                print_hangman(num_of_tries)
-                if num_of_tries == MAX_TRIES:
-                    print(show_hidden_word(secret_word, old_letters_guessed), "\n")
-                    print("LOSE")
+    while num_of_tries < MAX_TRIES:  # Game runs until user uses all his guesses or wins
+        update_screen(num_of_tries, secret_word, old_letters_guessed)
+        while True:
+            user_guess = input("Guess a letter:").lower()
+            if try_update_letter_guessed(user_guess, old_letters_guessed):
+                break   # user guess is valid
+        if check_guess(user_guess, secret_word):  # user guess is correct
+            if check_win(secret_word, old_letters_guessed):  # check if user won
+                update_screen(num_of_tries, secret_word, old_letters_guessed)
+                print("WIN")
+                break  # user won the game ends
+        else:  # user guess is wrong
+            num_of_tries += 1
+            if num_of_tries == MAX_TRIES:
+                update_screen(num_of_tries, secret_word, old_letters_guessed)
+                print("LOSE")
+    input()
 
 
 if __name__ == "__main__":
