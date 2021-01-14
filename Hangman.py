@@ -172,10 +172,15 @@ def initial_game():
     :return: file path and word index
     """
     print(HANGMAN_ASCII_ART, MAX_TRIES, sep="\n")
-    file_path = input("Enter secret words file path: ")
-    index = int(input("Enter index: "))
-    secret_word = choose_word(file_path, index)
-    return secret_word
+    while True:
+        file_path = input("Enter secret words file path: ")
+        try:
+            index = int(input("Enter index: "))
+            secret_word = choose_word(file_path, index)
+            return secret_word
+        except:
+            print("Invalid input, try again")
+
 
 
 def main():
